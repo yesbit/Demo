@@ -648,7 +648,7 @@ address public tokencontractAddress = address(this);
 mapping(address => uint256) public participantMask; 
 
 ///event for verificatio
-event verification(string _name, address indexed _from); // Event
+event verification(string _name, address indexed _from, string _metaverseAddress); // Event
 
 
 /**
@@ -675,11 +675,11 @@ _;
  * @param _minter The address that will be able to mint tokens.
  * @return A boolean that indicates if the operation was successful.
  */
-function addMinters(address _minter, string memory _avatar) public returns (bool) {
+function addMinters(address _minter, string memory _avatar, string memory _metaverseAddress) public returns (bool) {
 _addMinter(_minter);
 totalParticipants = totalParticipants.add(1);
 updateParticipantMask(_minter);
-emit verification(_avatar, msg.sender);
+emit verification(_avatar, msg.sender, _metaverseAddress);
 return true;
 }
 
