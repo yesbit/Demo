@@ -1,8 +1,6 @@
 
 pragma solidity ^0.5.2;
 
-import "openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol";
-
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
  * checks.
@@ -649,6 +647,10 @@ uint256 public blockFreezeInterval;
 address public tokencontractAddress = address(this);
 mapping(address => uint256) public participantMask; 
 
+///event for verificatio
+event verification(string _name, address indexed _from); // Event
+
+
 /**
  * @dev constructor, initializes variables.
  * @param _tokensPerBlock The amount of token that will be released per block, entered in wei format (E.g. 1000000000000000000)
@@ -673,10 +675,11 @@ _;
  * @param _minter The address that will be able to mint tokens.
  * @return A boolean that indicates if the operation was successful.
  */
-function addMinters(address _minter) external returns (bool) {
+function addMinters(address _minter, string memory _avatar) public returns (bool) {
 _addMinter(_minter);
 totalParticipants = totalParticipants.add(1);
 updateParticipantMask(_minter);
+emit verification(_avatar, msg.sender);
 return true;
 }
 
